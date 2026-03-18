@@ -1,819 +1,410 @@
  <!DOCTYPE html>
-  <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8"/>
-    <base target="_top"/>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: 'Inter', Arial, sans-serif; font-size: 13px; background: #f0f4f8; color: #1a1a2e; height:
-  100vh; display: flex; flex-direction: column; transition: all 0.3s; }
-      body.dark { background: #1a1a2e; color: #e0e0e0; }
-      #tela-inicio { display: flex; flex-direction: column; align-items: center; height: 100vh; background: white;
-  transition: all 0.3s; }
-      body.dark #tela-inicio { background: #1e2130; }
-      .inicio-header { width: 100%; padding: 28px 24px 0; text-align: center; }
-      .icone-logo { font-size: 52px; margin-bottom: 10px; display: block; }
-      .inicio-header h2 { font-size: 22px; font-weight: 600; background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-      .inicio-header p { color: #888; font-size: 12px; margin-top: 4px; }
-      body.dark .inicio-header p { color: #aaa; }
-      .abas { display: flex; width: 100%; margin-top: 24px; border-bottom: 2px solid #eef0f5; }
-      body.dark .abas { border-bottom-color: #2e3347; }
-      .aba { flex: 1; padding: 11px; text-align: center; font-size: 13px; font-weight: 500; cursor: pointer; color:
-  #888; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
-      .aba.ativa { color: #1a73e8; border-bottom-color: #1a73e8; }
-      .conteudo-aba { display: none; width: 100%; padding: 24px; flex-direction: column; gap: 16px; }
-      .conteudo-aba.ativo { display: flex; }
-      .usuario-boas-vindas { text-align: center; padding: 10px 0; }
-      .usuario-boas-vindas .emoji { font-size: 40px; display: block; margin-bottom: 12px; }
-      .usuario-boas-vindas h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-      .usuario-boas-vindas p { color: #666; font-size: 12px; line-height: 1.7; }
-      body.dark .usuario-boas-vindas p { color: #aaa; }
-      .recursos { display: flex; flex-direction: column; gap: 8px; }
-      .recurso { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f0f4ff; border-radius:
-  10px; font-size: 12px; color: #333; }
-      body.dark .recurso { background: #2e3347; color: #ccc; }
-      .recurso span:first-child { font-size: 18px; }
-      .form-group { width: 100%; }
-      .form-label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 12px; color: #444; }
-      body.dark .form-label { color: #ccc; }
-      .form-input { width: 100%; padding: 10px 14px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 13px;
-  outline: none; transition: border 0.2s; background: white; color: #1a1a2e; }
-      body.dark .form-input { background: #2e3347; border-color: #3e4560; color: #e0e0e0; }
-      .form-input:focus { border-color: #1a73e8; }
-      .form-hint { color: #999; font-size: 11px; margin-top: 5px; display: block; line-height: 1.5; }
-      .status-key { padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; text-align: center; }
-      .status-key.configurada { background: #e8f5e9; color: #2e7d32; }
-      .status-key.nao-configurada { background: #fff3e0; color: #e65100; }
-      .btn-primary { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius:
+ <html lang="pt-BR">
+ <head>
+   <meta charset="UTF-8"/>
+   <base target="_top"/>
+   <style>
+     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+     * { box-sizing: border-box; margin: 0; padding: 0; }
+     body { font-family: 'Inter', Arial, sans-serif; font-size: 13px; background: #f0f4f8; color: #1a1a2e; height:
+ 100vh; display: flex; flex-direction: column; transition: all 0.3s; }
+     body.dark { background: #1a1a2e; color: #e0e0e0; }
+     #tela-inicio { display: flex; flex-direction: column; align-items: center; height: 100vh; background: white;
+ transition: all 0.3s; }
+     body.dark #tela-inicio { background: #1e2130; }
+     .inicio-header { width: 100%; padding: 28px 24px 0; text-align: center; }
+     .icone-logo { font-size: 52px; margin-bottom: 10px; display: block; }
+     .inicio-header h2 { font-size: 22px; font-weight: 600; background: linear-gradient(135deg, #1a73e8, #0d47a1);
+ -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+     .inicio-header p { color: #888; font-size: 12px; margin-top: 4px; }
+     body.dark .inicio-header p { color: #aaa; }
+     .abas { display: flex; width: 100%; margin-top: 24px; border-bottom: 2px solid #eef0f5; }
+     body.dark .abas { border-bottom-color: #2e3347; }
+     .aba { flex: 1; padding: 11px; text-align: center; font-size: 13px; font-weight: 500; cursor: pointer; color:
+ #888; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+     .aba.ativa { color: #1a73e8; border-bottom-color: #1a73e8; }
+     .conteudo-aba { display: none; width: 100%; padding: 24px; flex-direction: column; gap: 16px; }
+     .conteudo-aba.ativo { display: flex; }
+     .usuario-boas-vindas { text-align: center; padding: 10px 0; }
+     .usuario-boas-vindas .emoji { font-size: 40px; display: block; margin-bottom: 12px; }
+     .usuario-boas-vindas h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+     .usuario-boas-vindas p { color: #666; font-size: 12px; line-height: 1.7; }
+     body.dark .usuario-boas-vindas p { color: #aaa; }
+     .recursos { display: flex; flex-direction: column; gap: 8px; }
+     .recurso { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f0f4ff; border-radius:
+ 10px; font-size: 12px; color: #333; }
+     body.dark .recurso { background: #2e3347; color: #ccc; }
+     .recurso span:first-child { font-size: 18px; }
+     .form-group { width: 100%; }
+     .form-label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 12px; color: #444; }
+     body.dark .form-label { color: #ccc; }
+     .form-input { width: 100%; padding: 10px 14px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 13px;
+ outline: none; transition: border 0.2s; background: white; color: #1a1a2e; }
+     body.dark .form-input { background: #2e3347; border-color: #3e4560; color: #e0e0e0; }
+     .form-input:focus { border-color: #1a73e8; }
+     .form-hint { color: #999; font-size: 11px; margin-top: 5px; display: block; line-height: 1.5; }
+     .status-key { padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; text-align: center; }
+     .status-key.configurada { background: #e8f5e9; color: #2e7d32; }
+     .status-key.nao-configurada { background: #fff3e0; color: #e65100; }
+     .btn-primary { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius:
+ 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
+     .btn-primary:hover { opacity: 0.9; }
+     .btn-secondary { background: white; color: #1a73e8; border: 2px solid #1a73e8; border-radius: 10px; padding: 10px;
+  font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s; }
+     body.dark .btn-secondary { background: #2e3347; color: #7aabf7; border-color: #7aabf7; }
+     .btn-relatorio { background: linear-gradient(135deg, #00c853, #007b33); color: white; border: none; border-radius:
   10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
-      .btn-primary:hover { opacity: 0.9; }
-      .btn-secondary { background: white; color: #1a73e8; border: 2px solid #1a73e8; border-radius: 10px; padding: 10px;
-   font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s; }
-      body.dark .btn-secondary { background: #2e3347; color: #7aabf7; border-color: #7aabf7; }
-      .btn-relatorio { background: linear-gradient(135deg, #00c853, #007b33); color: white; border: none; border-radius:
-   10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
-      .btn-relatorio:hover { opacity: 0.9; }
-      #tela-chat { display: none; flex-direction: column; height: 100vh; }
-      #header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background:
-  linear-gradient(135deg, #1a73e8, #0d47a1); color: white; flex-shrink: 0; box-shadow: 0 2px 8px rgba(26,115,232,0.4); }
-      .header-esquerda { display: flex; align-items: center; gap: 8px; }
-      .header-direita { display: flex; align-items: center; gap: 6px; }
-      .logo { font-size: 15px; font-weight: 600; }
-      .btn-header { background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; font-size: 15px;
-  width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s; }
-      .btn-header:hover { background: rgba(255,255,255,0.35); }
-      #mensagens { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 12px; }
-      body.dark #mensagens { background: #1e2130; }
-      #mensagens::-webkit-scrollbar { width: 4px; }
-      #mensagens::-webkit-scrollbar-thumb { background: #c5d6f8; border-radius: 4px; }
-      .msg { display: flex; align-items: flex-end; gap: 6px; }
-      .msg.usuario { justify-content: flex-end; }
-      .msg.assistente { justify-content: flex-start; }
-      .avatar { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-      .bubble { max-width: 82%; padding: 9px 13px; border-radius: 16px; line-height: 1.6; font-size: 13px; word-wrap:
-  break-word; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-      .msg.usuario .bubble { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white;
-  border-bottom-right-radius: 4px; }
-      .msg.assistente .bubble { background: white; color: #1a1a2e; border-bottom-left-radius: 4px; border: 1px solid
-  #e8edf5; }
-      body.dark .msg.assistente .bubble { background: #2e3347; color: #e0e0e0; border-color: #3e4560; }
-      #sugestoes { padding: 8px 12px; display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; background: white;
-  border-top: 1px solid #eef0f5; }
-      body.dark #sugestoes { background: #1e2130; border-top-color: #2e3347; }
-      .sugestao { background: #f0f4ff; color: #1a73e8; border: 1px solid #d0deff; border-radius: 20px; padding: 5px
-  11px; font-size: 11px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.2s; }
-      body.dark .sugestao { background: #2e3347; color: #7aabf7; border-color: #3e4560; }
-      .sugestao:hover { background: #1a73e8; color: white; border-color: #1a73e8; }
-      #area-input { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid #eef0f5; background: white;
-  flex-shrink: 0; }
-      body.dark #area-input { background: #1e2130; border-top-color: #2e3347; }
-      #input-msg { flex: 1; padding: 9px 12px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 13px; resize:
-  none; font-family: inherit; line-height: 1.4; background: white; color: #1a1a2e; }
-      body.dark #input-msg { background: #2e3347; border-color: #3e4560; color: #e0e0e0; }
-      #input-msg:focus { outline: none; border-color: #1a73e8; }
-      #btn-enviar { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius:
-  10px; padding: 0 14px; font-size: 16px; cursor: pointer; align-self: flex-end; height: 38px; }
-      #btn-enviar:disabled { background: #c0c8d8; cursor: not-allowed; }
-      #status-bar { padding: 6px 12px; background: #fff8e6; border-top: 1px solid #ffe9a0; font-size: 11px; color:
-  #8a6500; text-align: center; flex-shrink: 0; display: none; font-weight: 500; }
-      body.dark #status-bar { background: #2e2a1a; border-top-color: #5a4a00; color: #ffd54f; }
-      @keyframes piscar { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-      .digitando::after { content: ' ...'; animation: piscar 1.2s infinite; }
-    </style>
-  </head>
-  <body>
-     <div id="tela-inicio">
-      <div class="inicio-header">
-        <span class="icone-logo">🤖</span>
-        <h2>Sheets AI</h2>
-        <p>Assistente inteligente para planilhas</p>
-      </div>
-      <div class="abas">
-        <div class="aba ativa" id="aba-usuario" onclick="trocarAba('usuario')">👤 Usuario</div>
-        <div class="aba" id="aba-dev" onclick="trocarAba('dev')">⚙️ Desenvolvedor</div>
-      </div>
-      <div class="conteudo-aba ativo" id="conteudo-usuario">
-        <div class="usuario-boas-vindas">
-          <span class="emoji">👋</span>
-          <h3>Bem-vindo ao Sheets AI!</h3>
-          <p>Fale em portugues e a IA faz tudo na sua planilha automaticamente.</p>
-        </div>
-        <div class="recursos">
-          <div class="recurso"><span>📊</span><span>Analisa e resume seus dados</span></div>
-          <div class="recurso"><span>✍️</span><span>Escreve e organiza informacoes</span></div>
-          <div class="recurso"><span>💰</span><span>Formata moedas, datas e numeros</span></div>
-          <div class="recurso"><span>📈</span><span>Cria graficos automaticamente</span></div>
-          <div class="recurso"><span>🧮</span><span>Faz calculos e aplica formulas</span></div>
-        </div>
-        <button class="btn-primary" id="btn-entrar-usuario">Comecar a usar →</button>
-        <button class="btn-relatorio" id="btn-relatorio">📊 Gerar Relatorio Automatico</button>
-      </div>
-      <div class="conteudo-aba" id="conteudo-dev">
-        <div id="status-apikey" class="status-key nao-configurada">API Key nao configurada</div>
-        <div class="form-group">
-          <label class="form-label">Chave da API (Anthropic)</label>
-          <input type="password" id="input-apikey" class="form-input" placeholder="sk-ant-..."/>
-          <span class="form-hint">Acesse console.anthropic.com para gerar sua chave.</span>
-        </div>
-        <button class="btn-primary" id="btn-salvar-key">Salvar chave</button>
-        <button class="btn-secondary" id="btn-dev-entrar">Ir para o assistente</button>
-      </div>
-    </div>
+     .btn-relatorio:hover { opacity: 0.9; }
+     #tela-chat { display: none; flex-direction: column; height: 100vh; }
+     #header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background:
+ linear-gradient(135deg, #1a73e8, #0d47a1); color: white; flex-shrink: 0; box-shadow: 0 2px 8px rgba(26,115,232,0.4); }
+     .header-esquerda { display: flex; align-items: center; gap: 8px; }
+     .header-direita { display: flex; align-items: center; gap: 6px; }
+     .logo { font-size: 15px; font-weight: 600; }
+     .btn-header { background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; font-size: 15px;
+ width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+ transition: background 0.2s; }
+     .btn-header:hover { background: rgba(255,255,255,0.35); }
+     #mensagens { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 12px; }
+     body.dark #mensagens { background: #1e2130; }
+     #mensagens::-webkit-scrollbar { width: 4px; }
+     #mensagens::-webkit-scrollbar-thumb { background: #c5d6f8; border-radius: 4px; }
+     .msg { display: flex; align-items: flex-end; gap: 6px; }
+     .msg.usuario { justify-content: flex-end; }
+     .msg.assistente { justify-content: flex-start; }
+     .avatar { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #1a73e8, #0d47a1);
+ display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+     .bubble { max-width: 82%; padding: 9px 13px; border-radius: 16px; line-height: 1.6; font-size: 13px; word-wrap:
+ break-word; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+     .msg.usuario .bubble { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white;
+ border-bottom-right-radius: 4px; }
+     .msg.assistente .bubble { background: white; color: #1a1a2e; border-bottom-left-radius: 4px; border: 1px solid
+ #e8edf5; }
+     body.dark .msg.assistente .bubble { background: #2e3347; color: #e0e0e0; border-color: #3e4560; }
+     #sugestoes { padding: 8px 12px; display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; background: white;
+ border-top: 1px solid #eef0f5; }
+     body.dark #sugestoes { background: #1e2130; border-top-color: #2e3347; }
+     .sugestao { background: #f0f4ff; color: #1a73e8; border: 1px solid #d0deff; border-radius: 20px; padding: 5px
+ 11px; font-size: 11px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.2s; }
+     body.dark .sugestao { background: #2e3347; color: #7aabf7; border-color: #3e4560; }
+     .sugestao:hover { background: #1a73e8; color: white; border-color: #1a73e8; }
+     #area-input { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid #eef0f5; background: white;
+ flex-shrink: 0; }
+     body.dark #area-input { background: #1e2130; border-top-color: #2e3347; }
+     #input-msg { flex: 1; padding: 9px 12px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 13px; resize:
+ none; font-family: inherit; line-height: 1.4; background: white; color: #1a1a2e; }
+     body.dark #input-msg { background: #2e3347; border-color: #3e4560; color: #e0e0e0; }
+     #input-msg:focus { outline: none; border-color: #1a73e8; }
+     #btn-enviar { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius:
+ 10px; padding: 0 14px; font-size: 16px; cursor: pointer; align-self: flex-end; height: 38px; }
+     #btn-enviar:disabled { background: #c0c8d8; cursor: not-allowed; }
+     #status-bar { padding: 6px 12px; background: #fff8e6; border-top: 1px solid #ffe9a0; font-size: 11px; color:
+ #8a6500; text-align: center; flex-shrink: 0; display: none; font-weight: 500; }
+     body.dark #status-bar { background: #2e2a1a; border-top-color: #5a4a00; color: #ffd54f; }
+     @keyframes piscar { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+     .digitando::after { content: ' ...'; animation: piscar 1.2s infinite; }
+   </style>
+ </head>
+ <body>
+    <div id="tela-inicio">
+     <div class="inicio-header">
+       <span class="icone-logo">🤖</span>
+       <h2>Sheets AI</h2>
+       <p>Assistente inteligente para planilhas</p>
+     </div>
+     <div class="abas">
+       <div class="aba ativa" id="aba-usuario" onclick="trocarAba('usuario')">👤 Usuario</div>
+       <div class="aba" id="aba-dev" onclick="trocarAba('dev')">⚙️ Desenvolvedor</div>
+     </div>
+     <div class="conteudo-aba ativo" id="conteudo-usuario">
+       <div class="usuario-boas-vindas">
+         <span class="emoji">👋</span>
+         <h3>Bem-vindo ao Sheets AI!</h3>
+         <p>Fale em portugues e a IA faz tudo na sua planilha automaticamente.</p>
+       </div>
+       <div class="recursos">
+         <div class="recurso"><span>📊</span><span>Analisa e resume seus dados</span></div>
+         <div class="recurso"><span>✍️</span><span>Escreve e organiza informacoes</span></div>
+         <div class="recurso"><span>💰</span><span>Formata moedas, datas e numeros</span></div>
+         <div class="recurso"><span>📈</span><span>Cria graficos automaticamente</span></div>
+         <div class="recurso"><span>🧮</span><span>Faz calculos e aplica formulas</span></div>
+       </div>
+       <button class="btn-primary" id="btn-entrar-usuario">Comecar a usar →</button>
+       <button class="btn-relatorio" id="btn-relatorio">📊 Gerar Relatorio Automatico</button>
+     </div>
+     <div class="conteudo-aba" id="conteudo-dev">
+       <div id="status-apikey" class="status-key nao-configurada">API Key nao configurada</div>
+       <div class="form-group">
+         <label class="form-label">Chave da API (Anthropic)</label>
+         <input type="password" id="input-apikey" class="form-input" placeholder="sk-ant-..."/>
+         <span class="form-hint">Acesse console.anthropic.com para gerar sua chave.</span>
+       </div>
+       <button class="btn-primary" id="btn-salvar-key">Salvar chave</button>
+       <button class="btn-secondary" id="btn-dev-entrar">Ir para o assistente</button>
+     </div>
+   </div>
 
-    <div id="tela-chat">
-      <div id="header">
-        <div class="header-esquerda">
-          <button class="btn-header" id="btn-voltar">&#8592;</button>
-          <span class="logo">🤖 Sheets AI</span>
-        </div>
-        <div class="header-direita">
-          <button class="btn-header" id="btn-desfazer" title="Desfazer">↩</button>
-          <button class="btn-header" id="btn-darkmode">🌙</button>
-          <button class="btn-header" id="btn-config">⚙️</button>
-        </div>
-      </div>
-      <div id="mensagens">
-        <div class="msg assistente">
-          <div class="avatar">🤖</div>
-          <div class="bubble">
-            Ola! Sou seu assistente de planilhas.<br><br>
-            Posso <strong>ler, escrever, formatar</strong> dados, fazer <strong>calculos</strong>, criar
-  <strong>graficos</strong> e muito mais.<br><br>
-            So me diga o que precisa!
-          </div>
-        </div>
-      </div>
-      <div id="sugestoes">
-        <button class="sugestao">📊 Resumo da planilha</button>
-        <button class="sugestao">💰 Formatar como R$</button>
-        <button class="sugestao">📈 Criar grafico</button>
-        <button class="sugestao">🔢 Calcular totais</button>
-      </div>
-      <div id="area-input">
-        <textarea id="input-msg" placeholder="O que voce quer fazer?" rows="2"></textarea>
-        <button id="btn-enviar">&#9658;</button>
-      </div>
-      <div id="status-bar">⏳ Processando...</div>
-    </div>
-    <script>
-      var historico = [];
-      var sugestoesVisiveis = true;
-      var processando = false;
-      var darkMode = false;
+   <div id="tela-chat">
+     <div id="header">
+       <div class="header-esquerda">
+         <button class="btn-header" id="btn-voltar">&#8592;</button>
+         <span class="logo">🤖 Sheets AI</span>
+       </div>
+       <div class="header-direita">
+         <button class="btn-header" id="btn-desfazer" title="Desfazer">↩</button>
+         <button class="btn-header" id="btn-darkmode">🌙</button>
+         <button class="btn-header" id="btn-config">⚙️</button>
+       </div>
+     </div>
+     <div id="mensagens">
+       <div class="msg assistente">
+         <div class="avatar">🤖</div>
+         <div class="bubble">
+           Ola! Sou seu assistente de planilhas.<br><br>
+           Posso <strong>ler, escrever, formatar</strong> dados, fazer <strong>calculos</strong>, criar
+ <strong>graficos</strong> e muito mais.<br><br>
+           So me diga o que precisa!
+         </div>
+       </div>
+     </div>
+     <div id="sugestoes">
+       <button class="sugestao">📊 Resumo da planilha</button>
+       <button class="sugestao">💰 Formatar como R$</button>
+       <button class="sugestao">📈 Criar grafico</button>
+       <button class="sugestao">🔢 Calcular totais</button>
+     </div>
+     <div id="area-input">
+       <textarea id="input-msg" placeholder="O que voce quer fazer?" rows="2"></textarea>
+       <button id="btn-enviar">&#9658;</button>
+     </div>
+     <div id="status-bar">⏳ Processando...</div>
+   </div>
+   <script>
+     var historico = [];
+     var sugestoesVisiveis = true;
+     var processando = false;
+     var darkMode = false;
 
-      function trocarAba(aba) {
-        document.querySelectorAll('.aba').forEach(function(a) { a.classList.remove('ativa'); });
-        document.querySelectorAll('.conteudo-aba').forEach(function(c) { c.classList.remove('ativo'); });
-        document.getElementById('aba-' + aba).classList.add('ativa');
-        document.getElementById('conteudo-' + aba).classList.add('ativo');
-      }
+     function trocarAba(aba) {
+       document.querySelectorAll('.aba').forEach(function(a) { a.classList.remove('ativa'); });
+       document.querySelectorAll('.conteudo-aba').forEach(function(c) { c.classList.remove('ativo'); });
+       document.getElementById('aba-' + aba).classList.add('ativa');
+       document.getElementById('conteudo-' + aba).classList.add('ativo');
+     }
 
-      function voltarInicio() {
-        document.getElementById('tela-chat').style.display = 'none';
-        document.getElementById('tela-inicio').style.display = 'flex';
-        historico = [];
-        sugestoesVisiveis = true;
-        processando = false;
-        document.getElementById('sugestoes').style.display = 'flex';
-      }
+     function voltarInicio() {
+       document.getElementById('tela-chat').style.display = 'none';
+       document.getElementById('tela-inicio').style.display = 'flex';
+       historico = [];
+       sugestoesVisiveis = true;
+       processando = false;
+       document.getElementById('sugestoes').style.display = 'flex';
+     }
 
-      function mostrarChat() {
-        document.getElementById('tela-inicio').style.display = 'none';
-        document.getElementById('tela-chat').style.display = 'flex';
-        document.getElementById('input-msg').focus();
-      }
+     function mostrarChat() {
+       document.getElementById('tela-inicio').style.display = 'none';
+       document.getElementById('tela-chat').style.display = 'flex';
+       document.getElementById('input-msg').focus();
+     }
 
-      function alternarDarkMode() {
-        darkMode = !darkMode;
-        document.body.classList.toggle('dark', darkMode);
-        document.getElementById('btn-darkmode').textContent = darkMode ? '☀️' : '🌙';
-      }
+     function alternarDarkMode() {
+       darkMode = !darkMode;
+       document.body.classList.toggle('dark', darkMode);
+       document.getElementById('btn-darkmode').textContent = darkMode ? '☀️' : '🌙';
+     }
 
-      google.script.run
-        .withSuccessHandler(function(tem) {
-          if (tem) {
-            document.getElementById('status-apikey').textContent = '✅ API Key configurada';
-            document.getElementById('status-apikey').className = 'status-key configurada';
-          }
-        })
-        .temApiKey();
+     google.script.run
+       .withSuccessHandler(function(tem) {
+         if (tem) {
+           document.getElementById('status-apikey').textContent = '✅ API Key configurada';
+           document.getElementById('status-apikey').className = 'status-key configurada';
+         }
+       })
+       .temApiKey();
 
-      document.getElementById('btn-entrar-usuario').addEventListener('click', function() {
-        google.script.run
-          .withSuccessHandler(function(tem) {
-            if (tem) { mostrarChat(); }
-            else { alert('A chave API ainda nao foi configurada. Va na aba Desenvolvedor.'); trocarAba('dev'); }
-          })
-          .temApiKey();
-      });
+     document.getElementById('btn-entrar-usuario').addEventListener('click', function() {
+       google.script.run
+         .withSuccessHandler(function(tem) {
+           if (tem) { mostrarChat(); }
+           else { alert('A chave API ainda nao foi configurada. Va na aba Desenvolvedor.'); trocarAba('dev'); }
+         })
+         .temApiKey();
+     });
 
-      document.getElementById('btn-relatorio').addEventListener('click', function() {
-        var btnRel = document.getElementById('btn-relatorio');
-        if (btnRel.disabled) return;
-        btnRel.disabled = true;
-        btnRel.textContent = 'Gerando...';
-        google.script.run
-          .withSuccessHandler(function(relatorio) {
-            mostrarChat();
-            adicionarMsg('assistente', relatorio);
-            btnRel.disabled = false;
-            btnRel.textContent = '📊 Gerar Relatorio Automatico';
-          })
-          .withFailureHandler(function(err) {
-            alert('Erro: ' + err.message);
-            btnRel.disabled = false;
-            btnRel.textContent = '📊 Gerar Relatorio Automatico';
-          })
-          .gerarRelatorio();
-      });
+     document.getElementById('btn-relatorio').addEventListener('click', function() {
+       var btnRel = document.getElementById('btn-relatorio');
+       if (btnRel.disabled) return;
+       btnRel.disabled = true;
+       btnRel.textContent = 'Gerando...';
+       google.script.run
+         .withSuccessHandler(function(relatorio) {
+           mostrarChat();
+           adicionarMsg('assistente', relatorio);
+           btnRel.disabled = false;
+           btnRel.textContent = '📊 Gerar Relatorio Automatico';
+         })
+         .withFailureHandler(function(err) {
+           alert('Erro: ' + err.message);
+           btnRel.disabled = false;
+           btnRel.textContent = '📊 Gerar Relatorio Automatico';
+         })
+         .gerarRelatorio();
+     });
 
-      document.getElementById('btn-salvar-key').addEventListener('click', function() {
-        var key = document.getElementById('input-apikey').value.trim();
-        if (!key.startsWith('sk-ant-')) { alert('Chave invalida. Deve comecar com sk-ant-'); return; }
-        document.getElementById('btn-salvar-key').textContent = 'Salvando...';
-        google.script.run
-          .withSuccessHandler(function() {
-            document.getElementById('status-apikey').textContent = '✅ API Key configurada';
-            document.getElementById('status-apikey').className = 'status-key configurada';
-            document.getElementById('btn-salvar-key').textContent = 'Salvar chave';
-            document.getElementById('input-apikey').value = '';
-            alert('Chave salva com sucesso!');
-          })
-          .withFailureHandler(function(err) {
-            alert('Erro: ' + err.message);
-            document.getElementById('btn-salvar-key').textContent = 'Salvar chave';
-          })
-          .salvarApiKey(key);
-      });
+     document.getElementById('btn-salvar-key').addEventListener('click', function() {
+       var key = document.getElementById('input-apikey').value.trim();
+       if (!key.startsWith('sk-ant-')) { alert('Chave invalida. Deve comecar com sk-ant-'); return; }
+       document.getElementById('btn-salvar-key').textContent = 'Salvando...';
+       google.script.run
+         .withSuccessHandler(function() {
+           document.getElementById('status-apikey').textContent = '✅ API Key configurada';
+           document.getElementById('status-apikey').className = 'status-key configurada';
+           document.getElementById('btn-salvar-key').textContent = 'Salvar chave';
+           document.getElementById('input-apikey').value = '';
+           alert('Chave salva com sucesso!');
+         })
+         .withFailureHandler(function(err) {
+           alert('Erro: ' + err.message);
+           document.getElementById('btn-salvar-key').textContent = 'Salvar chave';
+         })
+         .salvarApiKey(key);
+     });
 
-      document.getElementById('btn-dev-entrar').addEventListener('click', function() {
-        google.script.run
-          .withSuccessHandler(function(tem) {
-            if (tem) { mostrarChat(); }
-            else { alert('Configure a chave API primeiro.'); }
-          })
-          .temApiKey();
-      });
+     document.getElementById('btn-dev-entrar').addEventListener('click', function() {
+       google.script.run
+         .withSuccessHandler(function(tem) {
+           if (tem) { mostrarChat(); }
+           else { alert('Configure a chave API primeiro.'); }
+         })
+         .temApiKey();
+     });
 
-      document.getElementById('btn-voltar').addEventListener('click', function() {
-        if (confirm('Voltar ao inicio? A conversa atual sera perdida.')) { voltarInicio(); }
-      });
+     document.getElementById('btn-voltar').addEventListener('click', function() {
+       if (confirm('Voltar ao inicio? A conversa atual sera perdida.')) { voltarInicio(); }
+     });
 
-      document.getElementById('btn-desfazer').addEventListener('click', function() {
-        if (confirm('Desfazer a ultima acao da IA?')) {
-          setBotao(false);
-          setStatus('Desfazendo...');
-          google.script.run
-            .withSuccessHandler(function(msg) {
-              adicionarMsg('assistente', '↩ ' + msg);
-              setStatus(null);
-              setBotao(true);
-            })
-            .withFailureHandler(function(err) {
-              adicionarMsg('assistente', 'Erro: ' + err.message);
-              setStatus(null);
-              setBotao(true);
-            })
-            .desfazerUltimaAcao();
-        }
-      });
+     document.getElementById('btn-desfazer').addEventListener('click', function() {
+       if (confirm('Desfazer a ultima acao da IA?')) {
+         setBotao(false);
+         setStatus('Desfazendo...');
+         google.script.run
+           .withSuccessHandler(function(msg) {
+             adicionarMsg('assistente', '↩ ' + msg);
+             setStatus(null);
+             setBotao(true);
+           })
+           .withFailureHandler(function(err) {
+             adicionarMsg('assistente', 'Erro: ' + err.message);
+             setStatus(null);
+             setBotao(true);
+           })
+           .desfazerUltimaAcao();
+       }
+     });
 
-      document.getElementById('btn-darkmode').addEventListener('click', alternarDarkMode);
+     document.getElementById('btn-darkmode').addEventListener('click', alternarDarkMode);
 
-      document.getElementById('btn-config').addEventListener('click', function() {
-        trocarAba('dev');
-        voltarInicio();
-      });
+     document.getElementById('btn-config').addEventListener('click', function() {
+       trocarAba('dev');
+       voltarInicio();
+     });
 
-      document.getElementById('input-msg').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarMensagem(); }
-      });
+     document.getElementById('input-msg').addEventListener('keydown', function(e) {
+       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarMensagem(); }
+     });
 
-      document.getElementById('btn-enviar').addEventListener('click', enviarMensagem);
+     document.getElementById('btn-enviar').addEventListener('click', enviarMensagem);
 
-      document.querySelectorAll('.sugestao').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.getElementById('input-msg').value = btn.textContent.trim().replace(/^[^\w]+/, '');
-          enviarMensagem();
-        });
-      });
+     document.querySelectorAll('.sugestao').forEach(function(btn) {
+       btn.addEventListener('click', function() {
+         document.getElementById('input-msg').value = btn.textContent.trim().replace(/^[^\w]+/, '');
+         enviarMensagem();
+       });
+     });
 
-      function formatarTexto(texto) {
-        var t = String(texto);
-        t = t.replace(/&/g, '&amp;');
-        t = t.replace(/</g, '&lt;');
-        t = t.replace(/>/g, '&gt;');
-        t = t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        t = t.replace(/\*(.*?)\*/g, '<em>$1</em>');
-        t = t.replace(/###\s(.*?)\n/g, '<strong>$1</strong><br>');
-        t = t.replace(/##\s(.*?)\n/g, '<strong>$1</strong><br>');
-        t = t.replace(/#\s(.*?)\n/g, '<strong>$1</strong><br>');
-        t = t.replace(/\n- /g, '<br>• ');
-        t = t.replace(/\n/g, '<br>');
-        return t;
-      }
+     function formatarTexto(texto) {
+       var t = String(texto);
+       t = t.replace(/&/g, '&amp;');
+       t = t.replace(/</g, '&lt;');
+       t = t.replace(/>/g, '&gt;');
+       t = t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+       t = t.replace(/\*(.*?)\*/g, '<em>$1</em>');
+       t = t.replace(/###\s(.*?)\n/g, '<strong>$1</strong><br>');
+       t = t.replace(/##\s(.*?)\n/g, '<strong>$1</strong><br>');
+       t = t.replace(/#\s(.*?)\n/g, '<strong>$1</strong><br>');
+       t = t.replace(/\n- /g, '<br>• ');
+       t = t.replace(/\n/g, '<br>');
+       return t;
+     }
 
-      function enviarMensagem() {
-        var input = document.getElementById('input-msg');
-        var texto = input.value.trim();
-        if (!texto || processando) return;
-        processando = true;
-        input.value = '';
-        adicionarMsg('usuario', texto);
-        historico.push({ role: 'user', content: texto });
-        if (sugestoesVisiveis) {
-          document.getElementById('sugestoes').style.display = 'none';
-          sugestoesVisiveis = false;
-        }
-        setBotao(false);
-        setStatus('A IA esta analisando sua planilha...');
-        var msgDigitando = adicionarMsgDigitando();
-        var historicoEnvio = JSON.parse(JSON.stringify(historico));
-        google.script.run
-          .withSuccessHandler(function(resultado) {
-            msgDigitando.remove();
-            adicionarMsg('assistente', resultado.texto);
-            historico.push({ role: 'assistant', content: resultado.texto });
-            setStatus(null);
-            processando = false;
-            setBotao(true);
-          })
-          .withFailureHandler(function(err) {
-            msgDigitando.remove();
-            adicionarMsg('assistente', 'Erro: ' + err.message);
-            setStatus(null);
-            processando = false;
-            setBotao(true);
-          })
-          .processarMensagem(historicoEnvio);
-      }
+     function enviarMensagem() {
+       var input = document.getElementById('input-msg');
+       var texto = input.value.trim();
+       if (!texto || processando) return;
+       processando = true;
+       input.value = '';
+       adicionarMsg('usuario', texto);
+       historico.push({ role: 'user', content: texto });
+       if (sugestoesVisiveis) {
+         document.getElementById('sugestoes').style.display = 'none';
+         sugestoesVisiveis = false;
+       }
+       setBotao(false);
+       setStatus('A IA esta analisando sua planilha...');
+       var msgDigitando = adicionarMsgDigitando();
+       var historicoEnvio = JSON.parse(JSON.stringify(historico));
+       google.script.run
+         .withSuccessHandler(function(resultado) {
+           msgDigitando.remove();
+           adicionarMsg('assistente', resultado.texto);
+           historico.push({ role: 'assistant', content: resultado.texto });
+           setStatus(null);
+           processando = false;
+           setBotao(true);
+         })
+         .withFailureHandler(function(err) {
+           msgDigitando.remove();
+           adicionarMsg('assistente', 'Erro: ' + err.message);
+           setStatus(null);
+           processando = false;
+           setBotao(true);
+         })
+         .processarMensagem(historicoEnvio);
+     }
 
-      function adicionarMsg(tipo, texto) {
-        var container = document.getElementById('mensagens');
-        var div = document.createElement('div');
-        div.className = 'msg ' + tipo;
-        if (tipo === 'assistente') {
-          div.innerHTML = '<div class="avatar">🤖</div><div class="bubble">' + formatarTexto(texto) + '</div>';
-        } else {
-          div.innerHTML = '<div class="bubble">' + formatarTexto(texto) + '</div>';
-        }
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-        return div;
-      }
+     function adicionarMsg(tipo, texto) {
+       var container = document.getElementById('mensagens');
+       var div = document.createElement('div');
+       div.className = 'msg ' + tipo;
+       if (tipo === 'assistente') {
+         div.innerHTML = '<div class="avatar">🤖</div><div class="bubble">' + formatarTexto(texto) + '</div>';
+       } else {
+         div.innerHTML = '<div class="bubble">' + formatarTexto(texto) + '</div>';
+       }
+       container.appendChild(div);
+       container.scrollTop = container.scrollHeight;
+       return div;
+     }
 
-      function adicionarMsgDigitando() {
-        var container = document.getElementById('mensagens');
-        var div = document.createElement('div');
-        div.className = 'msg assistente';
-        div.innerHTML = '<div class="avatar">🤖</div><div class="bubble digitando">Pensando</div>';
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-        return div;
-      }
+     function adicionarMsgDigitando() {
+       var container = document.getElementById('mensagens');
+       var div = document.createElement('div');
+       div.className = 'msg assistente';
+       div.innerHTML = '<div class="avatar">🤖</div><div class="bubble digitando">Pensando</div>';
+       container.appendChild(div);
+       container.scrollTop = container.scrollHeight;
+       return div;
+     }
 
-      function setStatus(msg) {
-        var bar = document.getElementById('status-bar');
-        if (msg) { bar.textContent = msg; bar.style.display = 'block'; }
-        else { bar.style.display = 'none'; }
-      }
+     function setStatus(msg) {
+       var bar = document.getElementById('status-bar');
+       if (msg) { bar.textContent = msg; bar.style.display = 'block'; }
+       else { bar.style.display = 'none'; }
+     }
 
-      function setBotao(habilitado) {
-        document.getElementById('btn-enviar').disabled = !habilitado;
-      }
-    </script>
-  </body>
-  </html> <!DOCTYPE html>
-  <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8"/>
-    <base target="_top"/>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: 'Inter', Arial, sans-serif; font-size: 13px; background: #f0f4f8; color: #1a1a2e; height:
-  100vh; display: flex; flex-direction: column; transition: all 0.3s; }
-      body.dark { background: #1a1a2e; color: #e0e0e0; }
-      #tela-inicio { display: flex; flex-direction: column; align-items: center; height: 100vh; background: white;
-  transition: all 0.3s; }
-      body.dark #tela-inicio { background: #1e2130; }
-      .inicio-header { width: 100%; padding: 28px 24px 0; text-align: center; }
-      .icone-logo { font-size: 52px; margin-bottom: 10px; display: block; }
-      .inicio-header h2 { font-size: 22px; font-weight: 600; background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-      .inicio-header p { color: #888; font-size: 12px; margin-top: 4px; }
-      body.dark .inicio-header p { color: #aaa; }
-      .abas { display: flex; width: 100%; margin-top: 24px; border-bottom: 2px solid #eef0f5; }
-      body.dark .abas { border-bottom-color: #2e3347; }
-      .aba { flex: 1; padding: 11px; text-align: center; font-size: 13px; font-weight: 500; cursor: pointer; color:
-  #888; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
-      .aba.ativa { color: #1a73e8; border-bottom-color: #1a73e8; }
-      .conteudo-aba { display: none; width: 100%; padding: 24px; flex-direction: column; gap: 16px; }
-      .conteudo-aba.ativo { display: flex; }
-      .usuario-boas-vindas { text-align: center; padding: 10px 0; }
-      .usuario-boas-vindas .emoji { font-size: 40px; display: block; margin-bottom: 12px; }
-      .usuario-boas-vindas h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-      .usuario-boas-vindas p { color: #666; font-size: 12px; line-height: 1.7; }
-      body.dark .usuario-boas-vindas p { color: #aaa; }
-      .recursos { display: flex; flex-direction: column; gap: 8px; }
-      .recurso { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f0f4ff; border-radius:
-  10px; font-size: 12px; color: #333; }
-      body.dark .recurso { background: #2e3347; color: #ccc; }
-      .recurso span:first-child { font-size: 18px; }
-      .form-group { width: 100%; }
-      .form-label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 12px; color: #444; }
-      body.dark .form-label { color: #ccc; }
-      .form-input { width: 100%; padding: 10px 14px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 13px;
-  outline: none; transition: border 0.2s; background: white; color: #1a1a2e; }
-      body.dark .form-input { background: #2e3347; border-color: #3e4560; color: #e0e0e0; }
-      .form-input:focus { border-color: #1a73e8; }
-      .form-hint { color: #999; font-size: 11px; margin-top: 5px; display: block; line-height: 1.5; }
-      .status-key { padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; text-align: center; }
-      .status-key.configurada { background: #e8f5e9; color: #2e7d32; }
-      .status-key.nao-configurada { background: #fff3e0; color: #e65100; }
-      .btn-primary { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius:
-  10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
-      .btn-primary:hover { opacity: 0.9; }
-      .btn-secondary { background: white; color: #1a73e8; border: 2px solid #1a73e8; border-radius: 10px; padding: 10px;
-   font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s; }
-      body.dark .btn-secondary { background: #2e3347; color: #7aabf7; border-color: #7aabf7; }
-      .btn-relatorio { background: linear-gradient(135deg, #00c853, #007b33); color: white; border: none; border-radius:
-   10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
-      .btn-relatorio:hover { opacity: 0.9; }
-      #tela-chat { display: none; flex-direction: column; height: 100vh; }
-      #header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background:
-  linear-gradient(135deg, #1a73e8, #0d47a1); color: white; flex-shrink: 0; box-shadow: 0 2px 8px rgba(26,115,232,0.4); }
-      .header-esquerda { display: flex; align-items: center; gap: 8px; }
-      .header-direita { display: flex; align-items: center; gap: 6px; }
-      .logo { font-size: 15px; font-weight: 600; }
-      .btn-header { background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; font-size: 15px;
-  width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s; }
-      .btn-header:hover { background: rgba(255,255,255,0.35); }
-      #mensagens { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 12px; }
-      body.dark #mensagens { background: #1e2130; }
-      #mensagens::-webkit-scrollbar { width: 4px; }
-      #mensagens::-webkit-scrollbar-thumb { background: #c5d6f8; border-radius: 4px; }
-      .msg { display: flex; align-items: flex-end; gap: 6px; }
-      .msg.usuario { justify-content: flex-end; }
-      .msg.assistente { justify-content: flex-start; }
-      .avatar { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-      .bubble { max-width: 82%; padding: 9px 13px; border-radius: 16px; line-height: 1.6; font-size: 13px; word-wrap:
-  break-word; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-      .msg.usuario .bubble { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white;
-  border-bottom-right-radius: 4px; }
-      .msg.assistente .bubble { background: white; color: #1a1a2e; border-bottom-left-radius: 4px; border: 1px solid
-  #e8edf5; }
-      body.dark .msg.assistente .bubble { background: #2e3347; color: #e0e0e0; border-color: #3e4560; }
-      #sugestoes { padding: 8px 12px; display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; background: white;
-  border-top: 1px solid #eef0f5; }
-      body.dark #sugestoes { background: #1e2130; border-top-color: #2e3347; }
-      .sugestao { background: #f0f4ff; color: #1a73e8; border: 1px solid #d0deff; border-radius: 20px; padding: 5px
-  11px; font-size: 11px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.2s; }
-      body.dark .sugestao { background: #2e3347; color: #7aabf7; border-color: #3e4560; }
-      .sugestao:hover { background: #1a73e8; color: white; border-color: #1a73e8; }
-      #area-input { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid #eef0f5; background: white;
-  flex-shrink: 0; }
-      body.dark #area-input { background: #1e2130; border-top-color: #2e3347; }
-      #input-msg { flex: 1; padding: 9px 12px; border: 2px solid #e0e7ff; border-radius: 10px; font-size: 13px; resize:
-  none; font-family: inherit; line-height: 1.4; background: white; color: #1a1a2e; }
-      body.dark #input-msg { background: #2e3347; border-color: #3e4560; color: #e0e0e0; }
-      #input-msg:focus { outline: none; border-color: #1a73e8; }
-      #btn-enviar { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius:
-  10px; padding: 0 14px; font-size: 16px; cursor: pointer; align-self: flex-end; height: 38px; }
-      #btn-enviar:disabled { background: #c0c8d8; cursor: not-allowed; }
-      #status-bar { padding: 6px 12px; background: #fff8e6; border-top: 1px solid #ffe9a0; font-size: 11px; color:
-  #8a6500; text-align: center; flex-shrink: 0; display: none; font-weight: 500; }
-      body.dark #status-bar { background: #2e2a1a; border-top-color: #5a4a00; color: #ffd54f; }
-      @keyframes piscar { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-      .digitando::after { content: ' ...'; animation: piscar 1.2s infinite; }
-    </style>
-  </head>
-  <body>
-     <div id="tela-inicio">
-      <div class="inicio-header">
-        <span class="icone-logo">🤖</span>
-        <h2>Sheets AI</h2>
-        <p>Assistente inteligente para planilhas</p>
-      </div>
-      <div class="abas">
-        <div class="aba ativa" id="aba-usuario" onclick="trocarAba('usuario')">👤 Usuario</div>
-        <div class="aba" id="aba-dev" onclick="trocarAba('dev')">⚙️ Desenvolvedor</div>
-      </div>
-      <div class="conteudo-aba ativo" id="conteudo-usuario">
-        <div class="usuario-boas-vindas">
-          <span class="emoji">👋</span>
-          <h3>Bem-vindo ao Sheets AI!</h3>
-          <p>Fale em portugues e a IA faz tudo na sua planilha automaticamente.</p>
-        </div>
-        <div class="recursos">
-          <div class="recurso"><span>📊</span><span>Analisa e resume seus dados</span></div>
-          <div class="recurso"><span>✍️</span><span>Escreve e organiza informacoes</span></div>
-          <div class="recurso"><span>💰</span><span>Formata moedas, datas e numeros</span></div>
-          <div class="recurso"><span>📈</span><span>Cria graficos automaticamente</span></div>
-          <div class="recurso"><span>🧮</span><span>Faz calculos e aplica formulas</span></div>
-        </div>
-        <button class="btn-primary" id="btn-entrar-usuario">Comecar a usar →</button>
-        <button class="btn-relatorio" id="btn-relatorio">📊 Gerar Relatorio Automatico</button>
-      </div>
-      <div class="conteudo-aba" id="conteudo-dev">
-        <div id="status-apikey" class="status-key nao-configurada">API Key nao configurada</div>
-        <div class="form-group">
-          <label class="form-label">Chave da API (Anthropic)</label>
-          <input type="password" id="input-apikey" class="form-input" placeholder="sk-ant-..."/>
-          <span class="form-hint">Acesse console.anthropic.com para gerar sua chave.</span>
-        </div>
-        <button class="btn-primary" id="btn-salvar-key">Salvar chave</button>
-        <button class="btn-secondary" id="btn-dev-entrar">Ir para o assistente</button>
-      </div>
-    </div>
-
-    <div id="tela-chat">
-      <div id="header">
-        <div class="header-esquerda">
-          <button class="btn-header" id="btn-voltar">&#8592;</button>
-          <span class="logo">🤖 Sheets AI</span>
-        </div>
-        <div class="header-direita">
-          <button class="btn-header" id="btn-desfazer" title="Desfazer">↩</button>
-          <button class="btn-header" id="btn-darkmode">🌙</button>
-          <button class="btn-header" id="btn-config">⚙️</button>
-        </div>
-      </div>
-      <div id="mensagens">
-        <div class="msg assistente">
-          <div class="avatar">🤖</div>
-          <div class="bubble">
-            Ola! Sou seu assistente de planilhas.<br><br>
-            Posso <strong>ler, escrever, formatar</strong> dados, fazer <strong>calculos</strong>, criar
-  <strong>graficos</strong> e muito mais.<br><br>
-            So me diga o que precisa!
-          </div>
-        </div>
-      </div>
-      <div id="sugestoes">
-        <button class="sugestao">📊 Resumo da planilha</button>
-        <button class="sugestao">💰 Formatar como R$</button>
-        <button class="sugestao">📈 Criar grafico</button>
-        <button class="sugestao">🔢 Calcular totais</button>
-      </div>
-      <div id="area-input">
-        <textarea id="input-msg" placeholder="O que voce quer fazer?" rows="2"></textarea>
-        <button id="btn-enviar">&#9658;</button>
-      </div>
-      <div id="status-bar">⏳ Processando...</div>
-    </div>
-    <script>
-      var historico = [];
-      var sugestoesVisiveis = true;
-      var processando = false;
-      var darkMode = false;
-
-      function trocarAba(aba) {
-        document.querySelectorAll('.aba').forEach(function(a) { a.classList.remove('ativa'); });
-        document.querySelectorAll('.conteudo-aba').forEach(function(c) { c.classList.remove('ativo'); });
-        document.getElementById('aba-' + aba).classList.add('ativa');
-        document.getElementById('conteudo-' + aba).classList.add('ativo');
-      }
-
-      function voltarInicio() {
-        document.getElementById('tela-chat').style.display = 'none';
-        document.getElementById('tela-inicio').style.display = 'flex';
-        historico = [];
-        sugestoesVisiveis = true;
-        processando = false;
-        document.getElementById('sugestoes').style.display = 'flex';
-      }
-
-      function mostrarChat() {
-        document.getElementById('tela-inicio').style.display = 'none';
-        document.getElementById('tela-chat').style.display = 'flex';
-        document.getElementById('input-msg').focus();
-      }
-
-      function alternarDarkMode() {
-        darkMode = !darkMode;
-        document.body.classList.toggle('dark', darkMode);
-        document.getElementById('btn-darkmode').textContent = darkMode ? '☀️' : '🌙';
-      }
-
-      google.script.run
-        .withSuccessHandler(function(tem) {
-          if (tem) {
-            document.getElementById('status-apikey').textContent = '✅ API Key configurada';
-            document.getElementById('status-apikey').className = 'status-key configurada';
-          }
-        })
-        .temApiKey();
-
-      document.getElementById('btn-entrar-usuario').addEventListener('click', function() {
-        google.script.run
-          .withSuccessHandler(function(tem) {
-            if (tem) { mostrarChat(); }
-            else { alert('A chave API ainda nao foi configurada. Va na aba Desenvolvedor.'); trocarAba('dev'); }
-          })
-          .temApiKey();
-      });
-
-      document.getElementById('btn-relatorio').addEventListener('click', function() {
-        var btnRel = document.getElementById('btn-relatorio');
-        if (btnRel.disabled) return;
-        btnRel.disabled = true;
-        btnRel.textContent = 'Gerando...';
-        google.script.run
-          .withSuccessHandler(function(relatorio) {
-            mostrarChat();
-            adicionarMsg('assistente', relatorio);
-            btnRel.disabled = false;
-            btnRel.textContent = '📊 Gerar Relatorio Automatico';
-          })
-          .withFailureHandler(function(err) {
-            alert('Erro: ' + err.message);
-            btnRel.disabled = false;
-            btnRel.textContent = '📊 Gerar Relatorio Automatico';
-          })
-          .gerarRelatorio();
-      });
-
-      document.getElementById('btn-salvar-key').addEventListener('click', function() {
-        var key = document.getElementById('input-apikey').value.trim();
-        if (!key.startsWith('sk-ant-')) { alert('Chave invalida. Deve comecar com sk-ant-'); return; }
-        document.getElementById('btn-salvar-key').textContent = 'Salvando...';
-        google.script.run
-          .withSuccessHandler(function() {
-            document.getElementById('status-apikey').textContent = '✅ API Key configurada';
-            document.getElementById('status-apikey').className = 'status-key configurada';
-            document.getElementById('btn-salvar-key').textContent = 'Salvar chave';
-            document.getElementById('input-apikey').value = '';
-            alert('Chave salva com sucesso!');
-          })
-          .withFailureHandler(function(err) {
-            alert('Erro: ' + err.message);
-            document.getElementById('btn-salvar-key').textContent = 'Salvar chave';
-          })
-          .salvarApiKey(key);
-      });
-
-      document.getElementById('btn-dev-entrar').addEventListener('click', function() {
-        google.script.run
-          .withSuccessHandler(function(tem) {
-            if (tem) { mostrarChat(); }
-            else { alert('Configure a chave API primeiro.'); }
-          })
-          .temApiKey();
-      });
-
-      document.getElementById('btn-voltar').addEventListener('click', function() {
-        if (confirm('Voltar ao inicio? A conversa atual sera perdida.')) { voltarInicio(); }
-      });
-
-      document.getElementById('btn-desfazer').addEventListener('click', function() {
-        if (confirm('Desfazer a ultima acao da IA?')) {
-          setBotao(false);
-          setStatus('Desfazendo...');
-          google.script.run
-            .withSuccessHandler(function(msg) {
-              adicionarMsg('assistente', '↩ ' + msg);
-              setStatus(null);
-              setBotao(true);
-            })
-            .withFailureHandler(function(err) {
-              adicionarMsg('assistente', 'Erro: ' + err.message);
-              setStatus(null);
-              setBotao(true);
-            })
-            .desfazerUltimaAcao();
-        }
-      });
-
-      document.getElementById('btn-darkmode').addEventListener('click', alternarDarkMode);
-
-      document.getElementById('btn-config').addEventListener('click', function() {
-        trocarAba('dev');
-        voltarInicio();
-      });
-
-      document.getElementById('input-msg').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarMensagem(); }
-      });
-
-      document.getElementById('btn-enviar').addEventListener('click', enviarMensagem);
-
-      document.querySelectorAll('.sugestao').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.getElementById('input-msg').value = btn.textContent.trim().replace(/^[^\w]+/, '');
-          enviarMensagem();
-        });
-      });
-
-      function formatarTexto(texto) {
-        var t = String(texto);
-        t = t.replace(/&/g, '&amp;');
-        t = t.replace(/</g, '&lt;');
-        t = t.replace(/>/g, '&gt;');
-        t = t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        t = t.replace(/\*(.*?)\*/g, '<em>$1</em>');
-        t = t.replace(/###\s(.*?)\n/g, '<strong>$1</strong><br>');
-        t = t.replace(/##\s(.*?)\n/g, '<strong>$1</strong><br>');
-        t = t.replace(/#\s(.*?)\n/g, '<strong>$1</strong><br>');
-        t = t.replace(/\n- /g, '<br>• ');
-        t = t.replace(/\n/g, '<br>');
-        return t;
-      }
-
-      function enviarMensagem() {
-        var input = document.getElementById('input-msg');
-        var texto = input.value.trim();
-        if (!texto || processando) return;
-        processando = true;
-        input.value = '';
-        adicionarMsg('usuario', texto);
-        historico.push({ role: 'user', content: texto });
-        if (sugestoesVisiveis) {
-          document.getElementById('sugestoes').style.display = 'none';
-          sugestoesVisiveis = false;
-        }
-        setBotao(false);
-        setStatus('A IA esta analisando sua planilha...');
-        var msgDigitando = adicionarMsgDigitando();
-        var historicoEnvio = JSON.parse(JSON.stringify(historico));
-        google.script.run
-          .withSuccessHandler(function(resultado) {
-            msgDigitando.remove();
-            adicionarMsg('assistente', resultado.texto);
-            historico.push({ role: 'assistant', content: resultado.texto });
-            setStatus(null);
-            processando = false;
-            setBotao(true);
-          })
-          .withFailureHandler(function(err) {
-            msgDigitando.remove();
-            adicionarMsg('assistente', 'Erro: ' + err.message);
-            setStatus(null);
-            processando = false;
-            setBotao(true);
-          })
-          .processarMensagem(historicoEnvio);
-      }
-
-      function adicionarMsg(tipo, texto) {
-        var container = document.getElementById('mensagens');
-        var div = document.createElement('div');
-        div.className = 'msg ' + tipo;
-        if (tipo === 'assistente') {
-          div.innerHTML = '<div class="avatar">🤖</div><div class="bubble">' + formatarTexto(texto) + '</div>';
-        } else {
-          div.innerHTML = '<div class="bubble">' + formatarTexto(texto) + '</div>';
-        }
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-        return div;
-      }
-
-      function adicionarMsgDigitando() {
-        var container = document.getElementById('mensagens');
-        var div = document.createElement('div');
-        div.className = 'msg assistente';
-        div.innerHTML = '<div class="avatar">🤖</div><div class="bubble digitando">Pensando</div>';
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-        return div;
-      }
-
-      function setStatus(msg) {
-        var bar = document.getElementById('status-bar');
-        if (msg) { bar.textContent = msg; bar.style.display = 'block'; }
-        else { bar.style.display = 'none'; }
-      }
-
-      function setBotao(habilitado) {
-        document.getElementById('btn-enviar').disabled = !habilitado;
-      }
-    </script>
-  </body>
-  </html>
+     function setBotao(habilitado) {
+       document.getElementById('btn-enviar').disabled = !habilitado;
+     }
+   </script>
+ </body>
+ </html>
